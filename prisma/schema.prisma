@@ -1,0 +1,75 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id String @id @default(uuid())
+  
+  name String
+  email String @unique
+  password String
+
+  groups Group[] @relation("users_group")
+  created_groups Group[] @relation("created_groups") 
+
+  posts Post[]
+  comments Comment[]
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+}
+
+model Group {
+  id String @id @default(uuid())
+  name String @unique
+  description String?
+  
+  users User[] @relation("users_group")
+  
+  creator_id String
+  creator User @relation("created_groups",fields: [creator_id], references: [id])
+
+  posts Post[]
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+}
+
+model Post {
+  id String @id @default(uuid())
+  title String
+  description String
+  image_url String?
+  
+  author_id String
+  author User @relation(fields: [author_id], references: [id])
+
+  comments Comment[]
+
+  group_id String?
+  group Group? @relation(fields: [group_id], references: [id])
+
+  likes Int @default(0)
+  is_report Boolean @default(false)
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+}
+
+model Comment{
+  id String @id @default(uuid())
+  text String
+
+  author_id String
+  author User @relation(fields: [author_id], references: [id])
+
+  post_id String
+  post Post @relation(fields: [post_id], references: [id])
+
+  likes Int @default(0)
+}
