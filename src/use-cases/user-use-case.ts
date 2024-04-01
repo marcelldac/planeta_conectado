@@ -23,6 +23,7 @@ export class UserUserCase {
 
   async findByID(id: string): Promise<User | null> {
     const result = await this.userRepository.findByID(id);
+    if (!result) throw new Error("User Not Found");
     return result;
   }
 
