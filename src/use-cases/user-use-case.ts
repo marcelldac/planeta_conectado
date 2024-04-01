@@ -16,6 +16,11 @@ export class UserUserCase {
     return result;
   }
 
+  async findAll(): Promise<User[]> {
+    const result = await this.userRepository.findAll();
+    return result;
+  }
+
   async findByID(id: string): Promise<User | null> {
     const result = await this.userRepository.findByID(id);
     return result;
