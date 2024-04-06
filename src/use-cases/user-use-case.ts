@@ -11,18 +11,18 @@ export class UserUseCase {
   async create({ name, email, password }: UserCreate): Promise<User> {
     const verifyIfUserExists = await this.userRepository.findByEmail(email);
     if (verifyIfUserExists) throw new Error("User Already Exists");
-    const result = await this.userRepository.create({ name, email, password });
-    return result;
+
+    return await this.userRepository.create({ name, email, password });
   }
 
   async findAll(): Promise<User[]> {
-    const result = await this.userRepository.findAll();
-    return result;
+    return await this.userRepository.findAll();
   }
 
   async findByID(id: string): Promise<User | null> {
     const result = await this.userRepository.findByID(id);
     if (!result) throw new Error("User Not Found");
+
     return result;
   }
 
