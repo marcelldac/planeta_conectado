@@ -1,3 +1,5 @@
+import { User } from "./user-interface";
+
 export interface Group {
   id: string;
   name: string;
@@ -5,6 +7,8 @@ export interface Group {
   creator_id: string;
   created_at: Date;
   updated_at: Date;
+  creator?: User;
+  users?: User[];
 }
 
 export interface CreateGroup {
