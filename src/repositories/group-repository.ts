@@ -31,8 +31,10 @@ class PrismaGroupRepository implements IGroupRepository {
     return result;
   }
   async findByID(id: string): Promise<Group | null> {
-    const result = await prisma.group.findUnique({ where: { id } });
-    return result;
+    return await prisma.group.findUnique({
+      where: { id },
+      include: { creator: true, users: true, posts: true, _count: true },
+    });
   }
   async findByUser(creator_id: string): Promise<Group[] | null> {
     const result = await prisma.group.findMany({ where: { creator_id } });
