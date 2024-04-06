@@ -1,9 +1,9 @@
 import { FastifyInstance } from "fastify";
-import { UserUserCase } from "../use-cases/user-use-case";
+import { UserUseCase } from "../use-cases/user-use-case";
 import { UserCreate } from "../interfaces/user-interface";
 
 export async function userRoutes(fastify: FastifyInstance) {
-  const userUseCase = new UserUserCase();
+  const userUseCase = new UserUseCase();
 
   fastify.get("/", async (_, reply) => {
     try {
