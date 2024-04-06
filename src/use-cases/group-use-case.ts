@@ -8,11 +8,14 @@ export class GroupUseCase {
     this.groupRepository = new PrismaGroupRepository();
   }
 
-  async create(group: CreateGroup) {
-    const groupExists = await this.groupRepository.findByName(group.name);
-    if (groupExists) throw new Error("Group already exists");
+  async create(data: CreateGroup) {
+    const group = await this.groupRepository.findByName(data.name);
+    if (group) throw new Error("Group already exists");
 
-    return this.groupRepository.create(group);
+    const user = await this.userRepository.findByID(data.creator_id);
+    if (!user) throw new Error("User not found");
+
+    return this.groupRepository.create(data);
   }
 
   async findAll() {
@@ -33,11 +36,11 @@ export class GroupUseCase {
     return this.groupRepository.findByUser(creator_id);
   }
 
-  async update(group: CreateGroup, id: string) {
+  async update(data: CreateGroup, id: string) {
     const groupExists = await this.groupRepository.findByID(id);
     if (!groupExists) throw new Error("Group not found");
 
-    return this.groupRepository.update(group, id);
+    return this.groupRepository.update(data, id);
   }
 
   async remove(id: string) {
