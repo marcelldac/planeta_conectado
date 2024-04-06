@@ -27,12 +27,10 @@ export class UserUserCase {
   }
 
   async update(data: UserCreate, id: string): Promise<User> {
-    const verifyIfUserExists = await this.userRepository.findByEmail(
-      data.email
-    );
-    if (!verifyIfUserExists) throw new Error("User Not Found");
-    const result = await this.userRepository.update(data, id);
-    return result;
+    const user = await this.userRepository.findByID(id);
+    if (!user) throw new Error("User Not Found");
+
+    return await this.userRepository.update(data, id);
   }
 
   async remove(id: string): Promise<void> {
