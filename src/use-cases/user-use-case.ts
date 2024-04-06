@@ -1,5 +1,6 @@
 import { User, UserCreate } from "../interfaces/user-interface";
 import PrismaUserRepository from "../repositories/user-repository";
+import bcrypt from "bcrypt";
 
 export class UserUseCase {
   private userRepository: PrismaUserRepository;
@@ -12,7 +13,10 @@ export class UserUseCase {
     const user = await this.userRepository.findByEmail(email);
     if (user) throw new Error("User Already Exists");
 
-    return await this.userRepository.create({ name, email, password });
+    const saltRounds = 10;
+    const hash = bcrypt.hashSync(password, saltRounds);
+
+    return await this.userRepository.create({ name, email, password: hash });
   }
 
   async findAll(): Promise<User[]> {
