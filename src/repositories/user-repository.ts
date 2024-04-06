@@ -11,18 +11,40 @@ class PrismaUserRepository implements IUserRepository {
   }
 
   async findAll(): Promise<User[] | []> {
-    return await prisma.user.findMany();
+    return await prisma.user.findMany({
+      include: {
+        created_groups: true,
+        groups: true,
+        comments: true,
+        posts: true,
+        _count: true,
+      },
+    });
   }
 
   async findByEmail(email: string): Promise<User | null> {
     return await prisma.user.findFirst({
       where: { email },
+      include: {
+        created_groups: true,
+        groups: true,
+        comments: true,
+        posts: true,
+        _count: true,
+      },
     });
   }
 
   async findByID(id: string): Promise<User | null> {
     return await prisma.user.findFirst({
       where: { id },
+      include: {
+        created_groups: true,
+        groups: true,
+        comments: true,
+        posts: true,
+        _count: true,
+      },
     });
   }
 
