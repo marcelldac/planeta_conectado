@@ -32,6 +32,36 @@ export async function groupRoutes(fastify: FastifyInstance) {
     }
   });
 
+  fastify.post<{ Body: { user_id: string }; Params: { id: string } }>(
+    "/add/:id",
+    async (req, reply) => {
+      try {
+        const data = await groupUseCase.addUserInGroup(
+          req.body.user_id,
+          req.params.id
+        );
+        reply.send(data);
+      } catch (err) {
+        reply.send(err);
+      }
+    }
+  );
+
+  fastify.post<{ Body: { user_id: string }; Params: { id: string } }>(
+    "/remove/:id",
+    async (req, reply) => {
+      try {
+        const data = await groupUseCase.removeUserFromGroup(
+          req.body.user_id,
+          req.params.id
+        );
+        reply.send(data);
+      } catch (err) {
+        reply.send(err);
+      }
+    }
+  );
+
   fastify.put<{ Body: CreateGroup; Params: { id: string } }>(
     "/:id",
     async (req, reply) => {
