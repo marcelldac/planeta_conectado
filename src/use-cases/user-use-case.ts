@@ -34,8 +34,9 @@ export class UserUserCase {
   }
 
   async remove(id: string): Promise<void> {
-    const verifyIfUserExists = await this.userRepository.findByID(id);
-    if (!verifyIfUserExists) throw new Error("User Not Found");
+    const user = await this.userRepository.findByID(id);
+    if (!user) throw new Error("User Not Found");
+
     await this.userRepository.remove(id);
   }
 }
