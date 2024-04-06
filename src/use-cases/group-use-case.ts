@@ -1,11 +1,62 @@
 import { CreateGroup } from "../interfaces/group-interface";
 import PrismaGroupRepository from "../repositories/group-repository";
+import PrismaUserRepository from "../repositories/user-repository";
 
 export class GroupUseCase {
   private groupRepository: PrismaGroupRepository;
+  private userRepository: PrismaUserRepository;
 
   constructor() {
     this.groupRepository = new PrismaGroupRepository();
+    this.userRepository = new PrismaUserRepository();
+  }
+
+  async addUserInGroup(user_id: string, group_id: string) {
+    const user = await this.userRepository.findByID(user_id);
+    if (!user) throw new Error("User not found");
+
+    const group = await this.groupRepository.findByID(group_id);
+    if (!group) throw new Error("Group not found");
+
+    if (group.creator!.id === user_id) {
+      throw new Error(
+        "User is the creator of the group. He's already in the group."
+      );
+    }
+
+    group.users!.map((user) => {
+      if (user.id === user_id) {
+        throw new Error("User is already in the group");
+      }
+    });
+
+    return this.groupRepository.addUserInGroup(user_id, group_id);
+  }
+
+  async removeUserFromGroup(user_id: string, group_id: string) {
+    const user = await this.userRepository.findByID(user_id);
+    if (!user) throw new Error("User not found");
+
+    const group = await this.groupRepository.findByID(group_id);
+    if (!group) throw new Error("Group not found");
+
+    if (group.creator!.id === user_id) {
+      throw new Error(
+        "User is the creator of the group. Delete the group if you want to exit."
+      );
+    }
+
+    if (group.users?.length === 0) {
+      throw new Error("Group has no users to remove");
+    }
+
+    group.users!.map((user) => {
+      if (user.id !== user_id) {
+        throw new Error("User is not in the group");
+      }
+    });
+
+    return this.groupRepository.removeUserFromGroup(user_id, group_id);
   }
 
   async create(data: CreateGroup) {
