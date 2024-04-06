@@ -1,6 +1,7 @@
+import bcrypt from "bcrypt";
+
 import { User, UserCreate } from "../interfaces/user-interface";
 import PrismaUserRepository from "../repositories/user-repository";
-import bcrypt from "bcrypt";
 
 export class UserUseCase {
   private userRepository: PrismaUserRepository;
