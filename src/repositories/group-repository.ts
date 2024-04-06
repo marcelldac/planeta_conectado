@@ -7,24 +7,21 @@ import {
 
 class PrismaGroupRepository implements IGroupRepository {
   async addUserInGroup(user_id: string, group_id: string): Promise<Group> {
-    const result = await prisma.group.update({
+    return await prisma.group.update({
       where: { id: group_id },
       data: { users: { connect: { id: user_id } } },
     });
-    return result;
   }
 
   async removeUserFromGroup(user_id: string, group_id: string): Promise<Group> {
-    const result = await prisma.group.update({
+    return await prisma.group.update({
       where: { id: group_id },
       data: { users: { disconnect: { id: user_id } } },
     });
-    return result;
   }
 
   async create(data: CreateGroup): Promise<Group> {
-    const result = await prisma.group.create({ data });
-    return result;
+    return await prisma.group.create({ data });
   }
   async findAll(): Promise<[] | Group[]> {
     return await prisma.group.findMany({
@@ -38,16 +35,13 @@ class PrismaGroupRepository implements IGroupRepository {
     });
   }
   async findByUser(creator_id: string): Promise<Group[] | null> {
-    const result = await prisma.group.findMany({ where: { creator_id } });
-    return result;
+    return await prisma.group.findMany({ where: { creator_id } });
   }
   async findByName(name: string): Promise<Group | null> {
-    const result = await prisma.group.findFirst({ where: { name } });
-    return result;
+    return await prisma.group.findFirst({ where: { name } });
   }
   async update(data: CreateGroup, id: string): Promise<Group> {
-    const result = await prisma.group.update({ where: { id }, data });
-    return result;
+    return await prisma.group.update({ where: { id }, data });
   }
   async remove(id: string): Promise<void> {
     await prisma.group.delete({ where: { id } });
