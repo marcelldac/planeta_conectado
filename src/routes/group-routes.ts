@@ -47,7 +47,7 @@ export async function groupRoutes(fastify: FastifyInstance) {
   fastify.delete<{ Params: { id: string } }>("/:id", async (req, reply) => {
     try {
       await groupUseCase.remove(req.params.id);
-      reply.send({ message: "User deleted." });
+      reply.send({ message: "Group deleted." });
     } catch (err) {
       reply.send(err);
     }
