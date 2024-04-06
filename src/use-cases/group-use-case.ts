@@ -20,7 +20,10 @@ export class GroupUseCase {
   }
 
   async findByID(id: string) {
-    return this.groupRepository.findByID(id);
+    const result = await this.groupRepository.findByID(id);
+    if (!result) throw new Error("Group not found");
+
+    return result;
   }
 
   async findByUser(creator_id: string) {
