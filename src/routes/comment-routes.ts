@@ -47,7 +47,7 @@ export async function commentRoutes(fastify: FastifyInstance) {
   fastify.delete<{ Params: { id: string } }>("/:id", async (req, reply) => {
     try {
       await commentUseCase.remove(req.params.id);
-      reply.send({ message: "Group deleted." });
+      reply.send({ message: "Comment deleted." });
     } catch (err) {
       reply.send(err);
     }
