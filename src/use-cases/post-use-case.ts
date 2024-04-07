@@ -1,4 +1,3 @@
-import { CreateGroup } from "../interfaces/group-interface";
 import { CreatePost } from "../interfaces/post-interface";
 import PrismaPostRepository from "../repositories/post-repository";
 
