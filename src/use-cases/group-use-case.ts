@@ -81,10 +81,10 @@ export class GroupUseCase {
   }
 
   async findByUser(creator_id: string) {
-    const userExists = await this.groupRepository.findByUser(creator_id);
-    if (!userExists) throw new Error("User not found");
+    const user = await this.groupRepository.findByUser(creator_id);
+    if (!user) throw new Error("User not found");
 
-    return this.groupRepository.findByUser(creator_id);
+    return user;
   }
 
   async update(data: CreateGroup, id: string) {
