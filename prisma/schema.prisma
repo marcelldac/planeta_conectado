@@ -18,7 +18,6 @@ model User {
   created_groups Group[] @relation("created_groups") 
 
   posts Post[]
-  comments Comment[]
 
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
@@ -65,10 +64,7 @@ model Comment{
   text String
   likes Int @default(0)
 
-  author_id String
-  author User @relation(fields: [author_id], references: [id])
-
   post_id String
-  post Post @relation(fields: [post_id], references: [id])
+  post Post @relation(fields: [post_id], references: [id], onDelete: Cascade)
 
 }
