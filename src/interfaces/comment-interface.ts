@@ -3,14 +3,12 @@ export interface Comment {
   text: string;
   likes: number;
   post_id: string;
-  author_id: string;
 }
 
 export interface CreateComment {
   text: string;
   likes: number;
   post_id: string;
-  author_id: string;
 }
 
 export interface ICommentRepository {
@@ -18,7 +16,6 @@ export interface ICommentRepository {
   findAll(): Promise<Comment[] | []>;
   findByID(id: string): Promise<Comment | null>;
   findByPost(post_id: string): Promise<Comment | null>;
-  findByAuthor(author_id: string): Promise<Comment[] | null>;
   update(data: CreateComment, id: string): Promise<Comment>;
   remove(id: string): Promise<void>;
 }
