@@ -25,10 +25,6 @@ class PrismaCommentRepository implements ICommentRepository {
     return await prisma.comment.findFirst({ where: { post_id } });
   }
 
-  async findByAuthor(author_id: string): Promise<Comment[] | null> {
-    return await prisma.comment.findMany({ where: { author_id } });
-  }
-
   async update(data: CreateComment, id: string): Promise<Comment> {
     return await prisma.comment.update({ where: { id }, data });
   }
