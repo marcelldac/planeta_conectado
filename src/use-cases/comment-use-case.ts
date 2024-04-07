@@ -25,13 +25,6 @@ export class CommentUseCase {
     return result;
   }
 
-  async findByAuthor(author_id: string) {
-    const authorPosts = await this.commentRepository.findByAuthor(author_id);
-    if (!authorPosts) throw new Error("Author do not have posts.");
-
-    return authorPosts;
-  }
-
   async update(data: CreateComment, id: string) {
     const post = await this.commentRepository.findByID(id);
     if (!post) throw new Error("Post not found");
