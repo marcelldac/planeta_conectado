@@ -15,7 +15,6 @@ class PrismaUserRepository implements IUserRepository {
       include: {
         created_groups: true,
         groups: true,
-        comments: true,
         posts: true,
         _count: true,
       },
@@ -28,7 +27,6 @@ class PrismaUserRepository implements IUserRepository {
       include: {
         created_groups: true,
         groups: true,
-        comments: true,
         posts: true,
         _count: true,
       },
@@ -41,7 +39,6 @@ class PrismaUserRepository implements IUserRepository {
       include: {
         created_groups: true,
         groups: true,
-        comments: true,
         posts: true,
         _count: true,
       },
