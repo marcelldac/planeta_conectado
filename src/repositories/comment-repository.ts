@@ -4,7 +4,6 @@ import {
   CreateComment,
   ICommentRepository,
 } from "../interfaces/comment-interface";
-import { CreateGroup, Group } from "../interfaces/group-interface";
 
 class PrismaCommentRepository implements ICommentRepository {
   async create(data: CreateComment): Promise<Comment> {
