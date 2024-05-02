@@ -5,7 +5,7 @@ import { postRoutes } from "./routes/post-routes";
 import { commentRoutes } from "./routes/comment-routes";
 
 const port = Number(process.env.PORT) || 3333;
-const app = fastify();
+const app = fastify({ logger: true });
 
 app.register(userRoutes, { prefix: "/api/v1/user" });
 app.register(groupRoutes, { prefix: "/api/v1/group" });
