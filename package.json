@@ -19,8 +19,12 @@
     "typescript": "^5.4.3"
   },
   "devDependencies": {
+    "@eslint/js": "^9.1.1",
     "@types/bcrypt": "^5.0.2",
     "@types/node": "^20.12.2",
-    "prisma": "^5.12.1"
+    "eslint": "^8.57.0",
+    "globals": "^15.1.0",
+    "prisma": "^5.12.1",
+    "typescript-eslint": "^7.8.0"
   }
 }
